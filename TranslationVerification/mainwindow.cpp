@@ -79,6 +79,7 @@ void MainWindow::setVerification(Status status)
 void MainWindow::fontChanged(const QFont& f)
 {
     ui->translationLineEdit->setFont(f);
+    ui->translatedLineEdit->setFont(f);
 }
 
 void MainWindow::setTextWidthLabel(int width)
