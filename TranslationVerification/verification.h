@@ -34,8 +34,6 @@ private:
     double m_containerWidth;
     QString m_translation;
     QFont m_font;
-    //QOnlineTranslator* m_translator;
-
 };
 
 #endif // VERIFICATION_H

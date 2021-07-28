@@ -13,36 +13,28 @@ Verification::Verification(QObject *parent) :
 void Verification::setFontSize(double fontSize)
 {
     if (m_fontSize != fontSize)
-    {
         m_fontSize = fontSize;
-    }
     verificationCheck();
 }
 
 void Verification::setContainerWidth(double containerWidth)
 {
     if (m_containerWidth != containerWidth)
-    {
         m_containerWidth = containerWidth;
-    }
     verificationCheck();
 }
 
 void Verification::setTranslation(const QString& translation)
 {
     if (m_translation != translation)
-    {
         m_translation = translation;
-    }
     verificationCheck();
 }
 
 void Verification::setFont(const QFont& f)
 {
     if (m_font != f)
-    {
         m_font = f;
-    }
     verificationCheck();
 }
 

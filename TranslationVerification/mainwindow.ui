@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>299</width>
-      <height>211</height>
+      <height>231</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -97,6 +97,34 @@
        </item>
        <item>
         <widget class="QLineEdit" name="translationLineEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="translationPushButton">
+         <property name="text">
+          <string>Choose Language</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Translated</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="translatedLineEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="translatedPushButton">
+         <property name="text">
+          <string>Choose Language</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

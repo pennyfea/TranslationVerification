@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSignalMapper>
 #include "verification.h"
+#include "addlanguagedialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,11 +20,23 @@ public:
     void fontChanged(const QFont& f);
     void setVerification(Status status);
     void setTextWidthLabel(int width);
+    void setLanguage(QOnlineTranslator::Language &language, int id);
+
+public slots:
+    void requestTranslation();
+    void openLanguageDialog(int id);
 
 private:
-    Ui::MainWindow *ui;
-    std::unique_ptr<Verification> verification;
-    QPalette palette;
+     Ui::MainWindow *ui;
     int m_width;
+    QPalette palette;
+    QSignalMapper *signalMapper;
+    QOnlineTranslator *m_translator;
+    QOnlineTranslator::Engine currentEngine() const;
+    QOnlineTranslator::Language m_language_source;
+    QOnlineTranslator::Language m_language_dest;
+    std::unique_ptr<Verification> verification;
+    std::unique_ptr<AddLanguageDialog> languageDialog;
+
 };
 #endif // MAINWINDOW_H
