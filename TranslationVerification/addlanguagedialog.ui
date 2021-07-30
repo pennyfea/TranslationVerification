@@ -220,22 +220,6 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>currentLanguagesListWidget</sender>
-   <signal>currentRowChanged(int)</signal>
-   <receiver>AddLanguageDialog</receiver>
-   <slot>checkVerticalMovement(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>345</x>
-     <y>191</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>224</x>
-     <y>199</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <slot>filterLanguages(QString)</slot>

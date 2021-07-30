@@ -18,11 +18,18 @@ AddLanguageDialog::AddLanguageDialog(QWidget *parent) :
    }
    ui->availableLanguagesListWidget->setCurrentRow(0);
 
+   if (ui->currentLanguagesListWidget->count() == 0)
+   {
+       ui->dialogButtonBox->button(QDialogButtonBox::Ok)->setDisabled(true);
+   }
+
    if (ui->currentLanguagesListWidget->count() != 0)
    {
        ui->currentLanguagesListWidget->setCurrentRow(0);
        ui->deselectButton->setEnabled(true);
    }
+
+
 }
 
 AddLanguageDialog::~AddLanguageDialog()
@@ -74,6 +81,7 @@ void AddLanguageDialog::selectLanguage()
     if (ui->currentLanguagesListWidget->count() == 1)
     {
         ui->selectButton->setDisabled(true);
+        ui->dialogButtonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
         return;
     }
 }

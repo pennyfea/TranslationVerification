@@ -27,8 +27,9 @@ public slots:
     void openLanguageDialog(int id);
 
 private:
-     Ui::MainWindow *ui;
+    Ui::MainWindow *ui;
     int m_width;
+    const int MAXIMUM = 1000;
     QPalette palette;
     QSignalMapper *signalMapper;
     QOnlineTranslator *m_translator;
@@ -37,6 +38,5 @@ private:
     QOnlineTranslator::Language m_language_dest;
     std::unique_ptr<Verification> verification;
     std::unique_ptr<AddLanguageDialog> languageDialog;
-
 };
 #endif // MAINWINDOW_H

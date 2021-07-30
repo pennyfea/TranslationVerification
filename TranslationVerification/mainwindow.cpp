@@ -19,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->textWidthLabel->setText("0");
     ui->translatedLineEdit->setDisabled(true);
 
+    ui->fontSizeSpinBox->setMaximum(MAXIMUM);
+    ui->containerWidthSpinBox->setMaximum(MAXIMUM);
+
     QObject::connect(ui->fontSizeSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), verification.get(),
         &Verification::setFontSize);
 
@@ -105,6 +108,7 @@ void MainWindow::openLanguageDialog(int id)
             {
                 ui->translatedPushButton->setText(QOnlineTranslator::languageName(languageDialog->languages()[0]));
                 setLanguage(languageDialog->languages()[0], id);
+                requestTranslation();
             }
         }
     }
@@ -122,11 +126,11 @@ void MainWindow::requestTranslation()
         {
              ui->translatedLineEdit->setText(m_translator->translation());
         }
-        if (m_translator->error() == QOnlineTranslator::ServiceError)
+        else if (m_translator->error() == QOnlineTranslator::NetworkError)
         {
             qCritical() << m_translator->errorString();
         }
-        if (m_translator->error() == QOnlineTranslator::NetworkError)
+        else if (m_translator->error() == QOnlineTranslator::ServiceError)
         {
             qCritical() << m_translator->errorString();
         }
