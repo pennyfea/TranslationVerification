@@ -32,17 +32,6 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../QOnlineTranslator/build/release/ -lQOnlineTranslator
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../QOnlineTranslator/build/debug/ -lQOnlineTranslator
-else:unix: LIBS += -L$$PWD/../QOnlineTranslator/build/ -lQOnlineTranslator
-
-INCLUDEPATH += $$PWD/../QOnlineTranslator/build/Debug
-DEPENDPATH += $$PWD/../QOnlineTranslator/build/Debug
-
-
 DESTDIR = $$PWD/../TranslationVerification-Installer/packages/ics.component/data
-
-
-
 
 
