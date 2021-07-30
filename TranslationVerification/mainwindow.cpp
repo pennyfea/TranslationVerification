@@ -1,8 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "addlanguagedialog.h"
-#include "verification.h"
-#include <QSignalMapper>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,8 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
 
-    signalMapper = new QSignalMapper(this);
-//    QObject::connect(signalMapper, &QSignalMapper::mapped, this, &MainWindow::openLanguageDialog);
+    m_signalMapper = new QSignalMapper(this);
+    connect(m_signalMapper, &QSignalMapper::mappedInt, this, &MainWindow::openLanguageDialog);
 
     ui->translationLineEdit->setFont(ui->fontComboBox->currentFont());
     ui->textWidthLabel->setText("0");
@@ -43,11 +40,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     QObject::connect(m_verification, &Verification::currentTextWidth, this, &MainWindow::setTextWidthLabel);
 
-    QObject::connect(ui->translationPushButton, &QPushButton::clicked, signalMapper,  QOverload<>::of(&QSignalMapper::map));
-    signalMapper->setMapping(ui->translationPushButton, 0);
+    QObject::connect(ui->translationPushButton, &QPushButton::clicked, m_signalMapper,  QOverload<>::of(&QSignalMapper::map));
+    m_signalMapper->setMapping(ui->translationPushButton, 0);
 
-    QObject::connect(ui->translatedPushButton, &QPushButton::clicked, signalMapper, QOverload<>::of(&QSignalMapper::map));
-    signalMapper->setMapping(ui->translatedPushButton, 1);
+    QObject::connect(ui->translatedPushButton, &QPushButton::clicked, m_signalMapper, QOverload<>::of(&QSignalMapper::map));
+    m_signalMapper->setMapping(ui->translatedPushButton, 1);
 
     QObject::connect(ui->translationLineEdit, &QLineEdit::textChanged, this, &MainWindow::requestTranslation);
 }
@@ -97,7 +94,7 @@ void MainWindow::setTextWidthLabel(int width)
 
 void MainWindow::openLanguageDialog(int id)
 {
-    if(QPushButton *button = qobject_cast<QPushButton *>(signalMapper->mapping(id)))
+    if(QPushButton *button = qobject_cast<QPushButton *>(m_signalMapper->mapping(id)))
     {
         m_languageDialog = new AddLanguageDialog(this);
 
