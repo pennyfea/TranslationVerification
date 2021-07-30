@@ -1,5 +1,4 @@
 QT       += core gui
-#QT_INSTALL_FRAMEWORK_PATH = C:/Qt/Tools/QtInstallerFramework/4.1
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -17,8 +16,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     verification.cpp \
-#    TranslationVerification-Installer
-
 
 HEADERS += \
     addlanguagedialog.h \
@@ -43,31 +40,8 @@ INCLUDEPATH += $$PWD/../QOnlineTranslator/build/Debug
 DEPENDPATH += $$PWD/../QOnlineTranslator/build/Debug
 
 
-#DESTDIR = $$PWD/TranslationVerification-Installer/packages/ics.component/data
+DESTDIR = $$PWD/../TranslationVerification-Installer/packages/ics.component/data
 
-#create_package.commands = $$quote(windeployqt --qmldir $$PWD/../TranslationVerification $${DESTDIR})
-
-#QMAKE_EXTRA_TARGETS += create_package
-#PRE_TARGETDEPS  += create_package
-
-
-#DISTFILES += \
-#    $$PWD/TranslationVerification-Installer/config/config.xml \
-#    $$PWD/TranslationVerification-Installer/packages/ics.component/meta/package.xml \
-#    $$PWD/TranslationVerification-Installer/packages/ics.component/meta/installscript.qs
-
-#INSTALLER = translationVerification-installer
-
-#INPUT = $$PWD/TranslationVerification-Installer/config/config.xml $$PWD/TranslationVerification-Installer/packages
-
-
-#translation-installer.input = INPUT
-#translation-installer.output = $$INSTALLER
-#translation-installer.commands = $$QT_INSTALL_FRAMEWORK_PATH/bin/binarycreator --offline-only -c $$PWD/config/config.xml -p $$PWD/packages/TranslationVerification
-#translation-installer.CONFIG += target_predeps no_link combine
-
-
-#QMAKE_EXTRA_COMPILERS += translation-installer
 
 
 
