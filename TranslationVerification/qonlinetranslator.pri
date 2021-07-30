@@ -10,8 +10,8 @@ SOURCES += $$PWD/../QOnlineTranslator/src/qonlinetranslator.cpp \
      $$PWD/../QOnlineTranslator/src/qoption.cpp \
      $$PWD/../QOnlineTranslator/src/qexample.cpp
 
-INCLUDEPATH +=   $$PWD/../QOnlineTranslator/
+INCLUDEPATH +=   $$PWD/../QOnlineTranslator/src
 
-CONFIG += c++11
+CONFIG += c++17
 
 DESTDIR = $$PWD/../TranslationVerification-Installer/packages/ics.component/data
