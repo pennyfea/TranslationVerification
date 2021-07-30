@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "addlanguagedialog.h"
+#include "verification.h"
+#include <QSignalMapper>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -7,13 +10,14 @@ MainWindow::MainWindow(QWidget *parent)
     , m_width(0),
      m_translator(new QOnlineTranslator(this)),
      m_language_source(QOnlineTranslator::NoLanguage),
-     m_language_dest(QOnlineTranslator::NoLanguage)
+     m_language_dest(QOnlineTranslator::NoLanguage),
+     m_verification(new Verification(this))
 {
     ui->setupUi(this);
 
-    verification = std::make_unique<Verification>(this);
+
     signalMapper = new QSignalMapper(this);
-    QObject::connect(signalMapper, &QSignalMapper::mappedInt, this, &MainWindow::openLanguageDialog);
+//    QObject::connect(signalMapper, &QSignalMapper::mapped, this, &MainWindow::openLanguageDialog);
 
     ui->translationLineEdit->setFont(ui->fontComboBox->currentFont());
     ui->textWidthLabel->setText("0");
@@ -22,22 +26,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui->fontSizeSpinBox->setMaximum(MAXIMUM);
     ui->containerWidthSpinBox->setMaximum(MAXIMUM);
 
-    QObject::connect(ui->fontSizeSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), verification.get(),
+    QObject::connect(ui->fontSizeSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), m_verification,
         &Verification::setFontSize);
 
-    QObject::connect(ui->containerWidthSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), verification.get(),
+    QObject::connect(ui->containerWidthSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), m_verification,
         &Verification::setContainerWidth);
 
-    QObject::connect(ui->translationLineEdit, &QLineEdit::textChanged, verification.get(),
+    QObject::connect(ui->translationLineEdit, &QLineEdit::textChanged, m_verification,
         &Verification::setTranslation);
 
     QObject::connect(ui->fontComboBox, &QFontComboBox::currentFontChanged, this, &MainWindow::fontChanged);
 
-    QObject::connect(ui->fontComboBox, &QFontComboBox::currentFontChanged, verification.get(), &Verification::setFont);
+    QObject::connect(ui->fontComboBox, &QFontComboBox::currentFontChanged, m_verification, &Verification::setFont);
 
-    QObject::connect(verification.get(), &Verification::verificationStatus, this, &MainWindow::setVerification);
+    QObject::connect(m_verification, &Verification::verificationStatus, this, &MainWindow::setVerification);
 
-    QObject::connect(verification.get(), &Verification::currentTextWidth, this, &MainWindow::setTextWidthLabel);
+    QObject::connect(m_verification, &Verification::currentTextWidth, this, &MainWindow::setTextWidthLabel);
 
     QObject::connect(ui->translationPushButton, &QPushButton::clicked, signalMapper,  QOverload<>::of(&QSignalMapper::map));
     signalMapper->setMapping(ui->translationPushButton, 0);
@@ -95,22 +99,25 @@ void MainWindow::openLanguageDialog(int id)
 {
     if(QPushButton *button = qobject_cast<QPushButton *>(signalMapper->mapping(id)))
     {
-        languageDialog = std::make_unique<AddLanguageDialog>(this);
-        languageDialog->show();
-        if (languageDialog->exec() == QDialog::Accepted)
+        m_languageDialog = new AddLanguageDialog(this);
+
+        m_languageDialog->show();
+        if (m_languageDialog->exec() == QDialog::Accepted)
         {
             if(id == 0)
             {
-                ui->translationPushButton->setText(QOnlineTranslator::languageName(languageDialog->languages()[0]));
-                setLanguage(languageDialog->languages()[0], id);
+                ui->translationPushButton->setText(QOnlineTranslator::languageName(m_languageDialog->languages()[0]));
+                setLanguage(m_languageDialog->languages()[0], id);
             }
             if(id == 1)
             {
-                ui->translatedPushButton->setText(QOnlineTranslator::languageName(languageDialog->languages()[0]));
-                setLanguage(languageDialog->languages()[0], id);
+                ui->translatedPushButton->setText(QOnlineTranslator::languageName(m_languageDialog->languages()[0]));
+                setLanguage(m_languageDialog->languages()[0], id);
                 requestTranslation();
             }
         }
+
+        m_languageDialog->deleteLater();
     }
 }
 

@@ -36,7 +36,7 @@ private:
     QOnlineTranslator::Engine currentEngine() const;
     QOnlineTranslator::Language m_language_source;
     QOnlineTranslator::Language m_language_dest;
-    std::unique_ptr<Verification> verification;
-    std::unique_ptr<AddLanguageDialog> languageDialog;
+    Verification* m_verification;
+    AddLanguageDialog* m_languageDialog;
 };
 #endif // MAINWINDOW_H
