@@ -31,12 +31,13 @@ private:
     int m_width;
     const int MAXIMUM = 1000;
     QPalette palette;
-    QSignalMapper *signalMapper;
+
     QOnlineTranslator *m_translator;
     QOnlineTranslator::Engine currentEngine() const;
     QOnlineTranslator::Language m_language_source;
     QOnlineTranslator::Language m_language_dest;
     Verification* m_verification;
+    QSignalMapper *m_signalMapper;
     AddLanguageDialog* m_languageDialog;
 };
 #endif // MAINWINDOW_H
