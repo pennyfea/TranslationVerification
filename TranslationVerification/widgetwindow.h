@@ -1,22 +1,22 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef WIDGETWINDOW_H
+#define WIDGETWINDOW_H
 
-#include <QMainWindow>
+#include <QWidget>
 #include <QSignalMapper>
 #include "verification.h"
 #include "addlanguagedialog.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+namespace Ui {
+class widgetwindow;
+}
 
-class MainWindow : public QMainWindow
+class widgetwindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit widgetwindow(QWidget *parent = nullptr);
+    ~widgetwindow();
     void fontChanged(const QFont& f);
     void setVerification(Status status);
     void setTextWidthLabel(int width);
@@ -27,7 +27,7 @@ public slots:
     void openLanguageDialog(int id);
 
 private:
-    Ui::MainWindow *ui;
+    Ui::widgetwindow *ui;
     int m_width;
     const int MAXIMUM = 1000;
     QPalette palette;
@@ -40,4 +40,6 @@ private:
     QSignalMapper *m_signalMapper;
     AddLanguageDialog* m_languageDialog;
 };
-#endif // MAINWINDOW_H
+
+#endif // WIDGETWINDOW_H
+

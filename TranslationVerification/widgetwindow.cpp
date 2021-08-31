@@ -1,27 +1,28 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "widgetwindow.h"
+#include "ui_widgetwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-    , m_width(0),
-     m_translator(new QOnlineTranslator(this)),
-     m_language_source(QOnlineTranslator::NoLanguage),
-     m_language_dest(QOnlineTranslator::NoLanguage),
-     m_verification(new Verification(this))
+widgetwindow::widgetwindow(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::widgetwindow),
+    m_width(0),
+    m_translator(new QOnlineTranslator(this)),
+    m_language_source(QOnlineTranslator::NoLanguage),
+    m_language_dest(QOnlineTranslator::NoLanguage),
+    m_verification(new Verification(this))
 {
     ui->setupUi(this);
-
-
+    ui->menuBar->hide();
     m_signalMapper = new QSignalMapper(this);
-    connect(m_signalMapper, &QSignalMapper::mappedInt, this, &MainWindow::openLanguageDialog);
+    connect(m_signalMapper, &QSignalMapper::mappedInt, this, &widgetwindow::openLanguageDialog);
 
     ui->translationLineEdit->setFont(ui->fontComboBox->currentFont());
     ui->textWidthLabel->setText("0");
-    ui->translatedLineEdit->setDisabled(true);
-
-     QFontMetrics fm(ui->fontComboBox->currentFont());
-     ui->fontSizeSpinBox->setValue(fm.height());
+    ui->translatedLineEdit->setReadOnly(true);
+    QPalette palette;
+    palette.setColor(QPalette::Base,Qt::gray);
+    ui->translatedLineEdit->setPalette(palette);
+    QFontMetrics fm(ui->fontComboBox->currentFont());
+    ui->fontSizeSpinBox->setValue(fm.height());
 
     ui->fontSizeSpinBox->setMaximum(MAXIMUM);
     ui->containerWidthSpinBox->setMaximum(MAXIMUM);
@@ -35,13 +36,13 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->translationLineEdit, &QLineEdit::textChanged, m_verification,
         &Verification::setTranslation);
 
-    QObject::connect(ui->fontComboBox, &QFontComboBox::currentFontChanged, this, &MainWindow::fontChanged);
+    QObject::connect(ui->fontComboBox, &QFontComboBox::currentFontChanged, this, &widgetwindow::fontChanged);
 
     QObject::connect(ui->fontComboBox, &QFontComboBox::currentFontChanged, m_verification, &Verification::setFont);
 
-    QObject::connect(m_verification, &Verification::verificationStatus, this, &MainWindow::setVerification);
+    QObject::connect(m_verification, &Verification::verificationStatus, this, &widgetwindow::setVerification);
 
-    QObject::connect(m_verification, &Verification::currentTextWidth, this, &MainWindow::setTextWidthLabel);
+    QObject::connect(m_verification, &Verification::currentTextWidth, this, &widgetwindow::setTextWidthLabel);
 
     QObject::connect(ui->translationPushButton, &QPushButton::clicked, m_signalMapper,  QOverload<>::of(&QSignalMapper::map));
     m_signalMapper->setMapping(ui->translationPushButton, 0);
@@ -49,15 +50,15 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->translatedPushButton, &QPushButton::clicked, m_signalMapper, QOverload<>::of(&QSignalMapper::map));
     m_signalMapper->setMapping(ui->translatedPushButton, 1);
 
-    QObject::connect(ui->translationLineEdit, &QLineEdit::textChanged, this, &MainWindow::requestTranslation);
+    QObject::connect(ui->translationLineEdit, &QLineEdit::textChanged, this, &widgetwindow::requestTranslation);
 }
 
-MainWindow::~MainWindow()
+widgetwindow::~widgetwindow()
 {
     delete ui;
 }
 
-void MainWindow::setVerification(Status status)
+void widgetwindow::setVerification(Status status)
 {
 
     ui->verificationStatusLabel->setAutoFillBackground(true);
@@ -83,7 +84,7 @@ void MainWindow::setVerification(Status status)
 
 }
 
-void MainWindow::fontChanged(const QFont& f)
+void widgetwindow::fontChanged(const QFont& f)
 {
     QFontMetrics fm(f);
     ui->translationLineEdit->setFont(f);
@@ -91,13 +92,13 @@ void MainWindow::fontChanged(const QFont& f)
     ui->fontSizeSpinBox->setValue(fm.height());
 }
 
-void MainWindow::setTextWidthLabel(int width)
+void widgetwindow::setTextWidthLabel(int width)
 {
     if (m_width != width)
         m_width = width;
 }
 
-void MainWindow::openLanguageDialog(int id)
+void widgetwindow::openLanguageDialog(int id)
 {
     if(QPushButton *button = qobject_cast<QPushButton *>(m_signalMapper->mapping(id)))
     {
@@ -123,7 +124,7 @@ void MainWindow::openLanguageDialog(int id)
     }
 }
 
-void MainWindow::requestTranslation()
+void widgetwindow::requestTranslation()
 {
     if (m_language_dest == QOnlineTranslator::NoLanguage && m_language_source == QOnlineTranslator::NoLanguage)
     {
@@ -150,7 +151,7 @@ void MainWindow::requestTranslation()
     });
 }
 
-void MainWindow::setLanguage(QOnlineTranslator::Language &language, int id)
+void widgetwindow::setLanguage(QOnlineTranslator::Language &language, int id)
 {
     if (id == 0)
     {
@@ -166,7 +167,8 @@ void MainWindow::setLanguage(QOnlineTranslator::Language &language, int id)
     }
 }
 
-QOnlineTranslator::Engine MainWindow::currentEngine() const
+QOnlineTranslator::Engine widgetwindow::currentEngine() const
 {
     return QOnlineTranslator::Google;
 }
+

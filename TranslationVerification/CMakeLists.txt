@@ -31,12 +31,12 @@ if(NOT qonlinetranslator_POPULATED)
 endif()
 
 set(PROJECT_SOURCES
-    addlanguagedialog.cpp
     main.cpp
-    mainwindow.cpp
-    verification.cpp
+    addlanguagedialog.cpp
     addlanguagedialog.ui
-    mainwindow.ui
+    verification.cpp
+    widgetwindow.ui
+    widgetwindow.cpp
 )
 
 if(QT_VERSION_MAJOR GREATER_EQUAL 5)
