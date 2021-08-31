@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->textWidthLabel->setText("0");
     ui->translatedLineEdit->setDisabled(true);
 
+     QFontMetrics fm(ui->fontComboBox->currentFont());
+     ui->fontSizeSpinBox->setValue(fm.height());
+
     ui->fontSizeSpinBox->setMaximum(MAXIMUM);
     ui->containerWidthSpinBox->setMaximum(MAXIMUM);
 
@@ -82,8 +85,10 @@ void MainWindow::setVerification(Status status)
 
 void MainWindow::fontChanged(const QFont& f)
 {
+    QFontMetrics fm(f);
     ui->translationLineEdit->setFont(f);
     ui->translatedLineEdit->setFont(f);
+    ui->fontSizeSpinBox->setValue(fm.height());
 }
 
 void MainWindow::setTextWidthLabel(int width)
