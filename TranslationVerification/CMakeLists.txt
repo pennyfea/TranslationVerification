@@ -12,6 +12,11 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+if(Qt5Widgets_FOUND)
+    if(${Qt5Widgets_VERSION} VERSION_LESS 5.15)
+        message(FATAL_ERROR "Minimum supported Qt5 version is 5.15!")
+     endif()
+endif()
 
 include(FetchContent)
 
@@ -52,3 +57,4 @@ target_link_libraries(translationVerification PUBLIC QOnlineTranslator PRIVATE Q
 if(QT_VERSION_MAJOR EQUAL 5)
     qt_finalize_executable(translationVerification)
 endif()
+
