@@ -14,6 +14,7 @@ set(CMAKE_AUTOUIC ON)
 # Naive platform specific implementation
 # Sets a custom variable named `Qt5_BASE_DIR` that we could use further to have
 # a modular import of Qt Framework's Libraries
+message("Testing against Qt")
 if(WIN32)
     if(MSVC)
         if(CMAKE_SIZEOF_VOID_P EQUAL 8)
@@ -22,19 +23,19 @@ if(WIN32)
             set(Qt5_LOCAL ~/Qt/5.15.2/msvc2019)
         endif()
         if(EXISTS ${Qt5_LOCAL})
-            message("Local Qt found!")
+            message("Qt5.15.2 found!")
             set(Qt5_BASE_DIR ${Qt5_LOCAL})
         else()
-            message("No user installed Qt5 found!")
+            message("Qt5.15.2 not found!")
         endif()
     endif()
 elseif(UNIX)
     set(Qt5_LOCAL $ENV{HOME}/Qt/5.15.2/gcc_64)
     if(EXISTS ${Qt5_LOCAL})
-        message("Local Qt found!")
+        message("Qt5.15.2 found!")
         set(Qt5_BASE_DIR ${Qt5_LOCAL})
     else()
-        message("No user installed Qt5 found!")
+        message("Qt5.15.2 not found!")
     endif()
 else()
     message(FATAL_ERROR "Unsupported platform")
@@ -90,18 +91,23 @@ target_include_directories(translationVerification PUBLIC
 
 target_link_libraries(translationVerification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets)
 
+
 #include(GNUInstallDirs)
-install(TARGETS translationVerification
-DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+#include(CPack)
+#include(CPackIFW)
 
-set(CPACK_PACKAGE_NAME "Translation Verification")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "ranslation Verification Installation")
-set(CPACK_PACKAGE_VERSION "1.0.0") # Version of installer
-include(CPack)
-include(CPackIFW)
+#install(TARGETS translationVerification
+#DESTINATION ${CMAKE_INSTALL_BINDIR}
+#)
+#install(DIRECTORY ${Qt5_BASE_DIR}/lib/
+#DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#USE_SOURCE_PERMISSIONS
+#)
+#set(CPACK_PACKAGE_NAME "Translation Verification")
+#set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "ranslation Verification Installation")
+#set(CPACK_PACKAGE_VERSION "1.0.0") # Version of installer
 
-cpack_add_install_type(End user DISPLAY_NAME "Translation Verification")
+#cpack_add_install_type(Default DISPLAY_NAME "Translation Verification")
 
 
 if(QT_VERSION_MAJOR EQUAL 5)
