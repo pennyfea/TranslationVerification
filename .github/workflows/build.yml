@@ -33,7 +33,7 @@ jobs:
             , QT_INST_DIR: "C:/", QTDIR: "C:/Qt/5.15.2/msvc2019_64", QT_ARCH: win64_msvc2019_64
             , install_ninja: "choco install ninja"
             , build_translationverification: "ninja install"
-#             , rename_package: "mv Translation_Verification-*.exe Translation_Verification-continuous-win64-installer.exe"
+            , rename_package: "mv Translation_Verification-*.exe Translation_Verification-continuous-win64-installer.exe"
           }
         - {
             name: "Windows-x86"
@@ -41,7 +41,7 @@ jobs:
             , QT_INST_DIR: "C:/", QTDIR: "C:/Qt/5.15.2/msvc2019", QT_ARCH: win32_msvc2019
             , install_ninja: "choco install ninja"
             , build_translationverification: "ninja install"
-#             , rename_package: "mv Translation_Verification-*.exe Translation_Verification-continuous-win32-installer.exe"
+            , rename_package: "mv Translation_Verification-*.exe Translation_Verification-continuous-win32-installer.exe"
           }
     steps:
     - uses: actions/checkout@v2
@@ -65,7 +65,7 @@ jobs:
     - name: Build Translation_Verification
       id: main_build
       run: |
-        cmake -S. -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
+        cmake -S. -G Ninja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
         ${{matrix.config.build_translationverification}}
     - name: CPack
       run: cpack
