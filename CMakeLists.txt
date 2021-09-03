@@ -73,7 +73,7 @@ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(CPACK_GENERATOR "TXZ")
 
 elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
-    set(CPACK_PACKAGE_INSTALL_DIRECTORY "TranslationVerification")
+    set(CPACK_PACKAGE_INSTALL_DIRECTORY "Translation_Verification")
     set(CPACK_NSIS_DISPLAY_NAME ${CMAKE_PACKAGE_NAME})
     set(CPACK_NSIS_COMPRESSOR lzma)
     set(CPACK_NSIS_INSTALLED_ICON_NAME Translation_Verification.exe)
