@@ -11,7 +11,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 5.15 COMPONENTS Core Widgets Gui Network REQUIRED)
+find_package(Qt5 5.15 COMPONENTS Widgets REQUIRED)
 if(Qt5Widgets_FOUND)
     if(${Qt5Widgets_VERSION} VERSION_LESS 5.15)
         message(FATAL_ERROR "Minimum supported Qt5 version is 5.15!")
@@ -44,7 +44,7 @@ if(QT_VERSION_MAJOR GREATER_EQUAL 5)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES})
 else()
-    add_executable(translationVerification
+    add_executable(translationVerification WIN32
         ${PROJECT_SOURCES})
 endif()
 
@@ -52,10 +52,13 @@ target_include_directories(translationVerification PUBLIC
     "${qonlinetranslator_BINARY_DIR}/src"
     "${qonlinetranslator_SOURCE_DIR}/src")
 
-target_link_libraries(translationVerification PUBLIC QOnlineTranslator PRIVATE Qt5::Core Qt5::Widgets Qt5::Gui Qt5::Network)
+target_link_libraries(translationVerification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets)
 
-install(TARGETS translationVerification RUNTIME DESTINATION .)
-
+if(WIN32)
+    install(TARGETS translationVerification RUNTIME DESTINATION .)
+else()
+    install(TARGETS translationVerification RUNTIME DESTINATION bin)
+endif()
 ##CPack
 get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
