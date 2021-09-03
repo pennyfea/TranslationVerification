@@ -11,20 +11,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-## Default Qt5 path
-if(WIN32)
-    set(Qt5_DIR "C:/Qt/5.15.2/msvc2019_64" CACHE PATH "directory where Qt5Config.cmake exists.")
-    if(EXISTS ${Qt5_DIR})
-        message("Local Qt found!")
-    endif()
-elseif(UNIX)
-  set(Qt5_DIR $ENV{HOME}/Qt/5.15.2/gcc_64 CACHE PATH "directory where Qt5Config.cmake exists.")
-  if(EXISTS ${Qt5_DIR})
-      message("Local Qt found!")
-  endif()
-endif()
-
-find_package(Qt5 5.15 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 5.15 COMPONENTS Core Widgets Gui Network REQUIRED)
 if(Qt5Widgets_FOUND)
     if(${Qt5Widgets_VERSION} VERSION_LESS 5.15)
         message(FATAL_ERROR "Minimum supported Qt5 version is 5.15!")
@@ -65,7 +52,7 @@ target_include_directories(translationVerification PUBLIC
     "${qonlinetranslator_BINARY_DIR}/src"
     "${qonlinetranslator_SOURCE_DIR}/src")
 
-target_link_libraries(translationVerification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets)
+target_link_libraries(translationVerification PUBLIC QOnlineTranslator PRIVATE Qt5::Core Qt5::Widgets Qt5::Gui Qt5::Network)
 
 install(TARGETS translationVerification RUNTIME DESTINATION .)
 
@@ -73,18 +60,12 @@ install(TARGETS translationVerification RUNTIME DESTINATION .)
 get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
 
-set(CPACK_PACKAGE_NAME "Translation Verification")
+set(CPACK_PACKAGE_NAME "Translation_Verification")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Translation Verification Installation")
 set(CPACK_PACKAGE_VERSION "1.0.0") # Version of installer
 
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
-    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/translationVerification.desktop DESTINATION share/applications/)
-    add_custom_command(TARGET translationVerification POST_BUILD
-                       COMMAND  wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-                       COMMAND  export VERSION=continuous
-#                       COMMAND  chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-#                       COMMAND ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -unsupported-allow-new-glibc -appimage -extra-plugins=iconengines,platformthemes/libqxdgdesktopportal.so
-                      )
+    install(FILES ${CMAKE_SOURCE_DIR}/translationVerification.desktop DESTINATION share/applications/)
     set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-linux-${ARCHITECTURE}")
     set(CPACK_GENERATOR "TXZ")
 
