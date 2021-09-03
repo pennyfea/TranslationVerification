@@ -99,6 +99,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
     install(
         DIRECTORY "${CMAKE_BINARY_DIR}/qtDeploy/"
         DESTINATION .
+        FILES_MATCHING PATTERN "*.*"
     )
     set(CPACK_GENERATOR "ZIP;NSIS")
 endif()
