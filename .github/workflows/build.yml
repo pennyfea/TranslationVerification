@@ -81,6 +81,8 @@ jobs:
         find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
     - name: Prepare Upload
       shell: bash
+      run: ${{matrix.config.rename_package}}
+
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
