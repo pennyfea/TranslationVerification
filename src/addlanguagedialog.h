@@ -1,7 +1,11 @@
 #ifndef ADDLANGUAGEDIALOG_H
 #define ADDLANGUAGEDIALOG_H
 
+#include <QObject>
 #include <QDialog>
+#include <QKeyEvent>
+#include <QPushButton>
+#include <QDebug>
 #include "qonlinetranslator.h"
 
 class QListWidget;
@@ -20,16 +24,22 @@ class AddLanguageDialog : public QDialog
 public:
     explicit AddLanguageDialog(QWidget *parent = nullptr);
     ~AddLanguageDialog();
-
     QVector<QOnlineTranslator::Language> languages() const;
 
- public slots:
+public slots:
      void accept() override;
 
- private slots:
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+
+signals:
+    void isSelected();
+
+private slots:
      void filterLanguages(const QString &text);
      void selectLanguage();
      void deselectLanguage();
+
 
 
  private:

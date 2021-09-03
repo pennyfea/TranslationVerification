@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=translationVerification
+Terminal=false
+Exec=translationVerification
+Categories=Qt;

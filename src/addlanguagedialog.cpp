@@ -1,14 +1,12 @@
 #include "addlanguagedialog.h"
 #include "ui_addlanguagedialog.h"
-#include <QPushButton>
-#include <QDebug>
-
 AddLanguageDialog::AddLanguageDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddLanguageDialog)
 {
-    ui->setupUi(this);
-    setMinimumSize(395,200);
+   ui->setupUi(this);
+   setMinimumSize(395,200);
+   setFocusPolicy(Qt::StrongFocus);
    // Load languages
    for (int i = 1; i <= QOnlineTranslator::Zulu; ++i)
    {
@@ -28,8 +26,7 @@ AddLanguageDialog::AddLanguageDialog(QWidget *parent) :
        ui->currentLanguagesListWidget->setCurrentRow(0);
        ui->deselectButton->setEnabled(true);
    }
-
-
+   QObject::connect(this, &AddLanguageDialog::isSelected, this, &AddLanguageDialog::selectLanguage);
 }
 
 AddLanguageDialog::~AddLanguageDialog()
@@ -45,10 +42,25 @@ QVector<QOnlineTranslator::Language> AddLanguageDialog::languages() const
 void AddLanguageDialog::accept()
 {
     QDialog::accept();
-
     m_languages.reserve(ui->currentLanguagesListWidget->count());
     QListWidgetItem *item = ui->currentLanguagesListWidget->item(0);
     m_languages.append(item->data(Qt::UserRole).value<QOnlineTranslator::Language>());
+}
+
+void AddLanguageDialog::keyPressEvent(QKeyEvent *event)
+{
+    switch(event->key()){
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        if (ui->currentLanguagesListWidget->count() >= 1)
+            event->ignore();
+        else
+            emit isSelected();
+        break;
+    default:
+        break;
+
+    }
 }
 
 void AddLanguageDialog::filterLanguages(const QString &text)

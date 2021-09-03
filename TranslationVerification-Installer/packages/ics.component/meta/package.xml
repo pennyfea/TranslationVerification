@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Package>
-    <DisplayName>Translation Verification</DisplayName>
-    <Description>Install the Translation Verification</Description>
-    <Version>1.0.0-1</Version>
-    <ReleaseDate>2021-07-30</ReleaseDate>
-    <Default>true</Default>
-    <Script>installscript.qs</Script>
-</Package>
