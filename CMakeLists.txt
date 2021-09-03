@@ -77,13 +77,15 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
     set(CPACK_NSIS_DISPLAY_NAME ${CMAKE_PACKAGE_NAME})
     set(CPACK_NSIS_COMPRESSOR lzma)
     set(CPACK_NSIS_INSTALLED_ICON_NAME Translation_Verification.exe)
+    set(CPACK_NSIS_EXTRA_PREINSTALL_COMMANDS "!include \\\"${PROJECT_SOURCE_DIR}\\\\deploy\\\\FileAssociation.nsh\\\"")
     set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
     set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
+    
     include(InstallRequiredSystemLibraries)
     find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
 
     add_custom_command(TARGET Translation_Verification POST_BUILD
-                       COMMAND "${CMAKE_COMMAND}" -E remove_directory "${CMAKE_CURRENT_BINARY_DIR}/qtDeploy/"
+                       COMMAND "${CMAKE_COMMAND}" -E remove_directory "${CMAKE_BINARY_DIR}/qtDeploy/"
                        COMMAND "${CMAKE_COMMAND}" -E
                                env PATH="${_qt_bin_dir}" "${WINDEPLOYQT_EXECUTABLE}"
                                --verbose 0
