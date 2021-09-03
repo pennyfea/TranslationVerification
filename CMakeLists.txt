@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10.0)
 
-project(TranslationVerification VERSION 1.0.0 LANGUAGES CXX)
+project(Translation_Verification VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -52,12 +52,12 @@ target_include_directories(translationVerification PUBLIC
     "${qonlinetranslator_BINARY_DIR}/src"
     "${qonlinetranslator_SOURCE_DIR}/src")
 
-target_link_libraries(translationVerification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets)
+target_link_libraries(Translation_Verification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets)
 
 if(WIN32)
-    install(TARGETS translationVerification RUNTIME DESTINATION .)
+    install(TARGETS Translation_Verification RUNTIME DESTINATION .)
 else()
-    install(TARGETS translationVerification RUNTIME DESTINATION bin)
+    install(TARGETS Translation_Verification RUNTIME DESTINATION bin)
 endif()
 ##CPack
 get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
@@ -82,7 +82,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
     include(InstallRequiredSystemLibraries)
     find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
 
-    add_custom_command(TARGET translationVerification POST_BUILD
+    add_custom_command(TARGET Translation_Verification POST_BUILD
                        COMMAND "${CMAKE_COMMAND}" -E remove_directory "${CMAKE_CURRENT_BINARY_DIR}/qtDeploy/"
                        COMMAND "${CMAKE_COMMAND}" -E
                                env PATH="${_qt_bin_dir}" "${WINDEPLOYQT_EXECUTABLE}"
