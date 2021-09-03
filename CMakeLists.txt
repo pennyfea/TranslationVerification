@@ -40,11 +40,11 @@ set(PROJECT_SOURCES
 )
 
 if(QT_VERSION_MAJOR GREATER_EQUAL 5)
-    qt_add_executable(translationVerification
+    qt_add_executable(Translation_Verification
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES})
 else()
-    add_executable(translationVerification WIN32
+    add_executable(Translation_Verification WIN32
         ${PROJECT_SOURCES})
 endif()
 
@@ -92,7 +92,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
                                --no-webkit2
                                --no-quick-import
                                --no-translations
-                               --dir "${CMAKE_BINARY_DIR}/qtDeploy/" $<TARGET_FILE:translationVerification>
+                               --dir "${CMAKE_BINARY_DIR}/qtDeploy/" $<TARGET_FILE:Translation_Verification>
                        COMMENT "Deploying Qt..."
     )
 
