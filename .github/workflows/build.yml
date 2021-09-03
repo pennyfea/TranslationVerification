@@ -33,7 +33,6 @@ jobs:
             , QT_INST_DIR: "C:/", QTDIR: "C:/Qt/5.15.2/msvc2019_64", QT_ARCH: win64_msvc2019_64
             , install_ninja: "choco install ninja"
             , build_translationVerification: "ninja install"
-#             , rename_package: "mv Translation_Verification-*.zip Translation_Verification-continuous-win64.zip && mv Translation_Verification-*.exe Translation_Verification-continuous-win64-installer.exe"
           }
         - {
             name: "Windows-x86"
@@ -41,7 +40,6 @@ jobs:
             , QT_INST_DIR: "C:/", QTDIR: "C:/Qt/5.15.2/msvc2019", QT_ARCH: win32_msvc2019
             , install_ninja: "choco install ninja"
             , build_translationVerification: "ninja install"
-#             , rename_package: "mv Translation_Verification-*.zip Translation_Verification-continuous-win32.zip && mv Translation_Verification-*.exe Translation_Verification-continuous-win32-installer.exe"
           }
     steps:
     - uses: actions/checkout@v2
@@ -77,7 +75,7 @@ jobs:
         export VERSION=continuous
         chmod a+x linuxdeployqt*.AppImage
         unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
-        ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/*.desktop -unsupported-allow-new-glibc -appimage -no-plugins 
+        ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/*.desktop -appimage -no-plugins -unsupported-allow-new-glibc
         find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
     - name: Prepare Upload
       shell: bash
