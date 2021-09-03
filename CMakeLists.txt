@@ -48,7 +48,7 @@ else()
         ${PROJECT_SOURCES})
 endif()
 
-target_include_directories(translationVerification PUBLIC
+target_include_directories(Translation_Verification PUBLIC
     "${qonlinetranslator_BINARY_DIR}/src"
     "${qonlinetranslator_SOURCE_DIR}/src")
 
