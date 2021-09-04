@@ -9,7 +9,7 @@ on:
 env:
   QT_VERSION: 5.15.2
   BUILD_TYPE: Release
-  packageGlob: Translation_Verification-continuous-*.*
+  packageGlob: Translation_Verification-*.*
 
 jobs:
   main_build:
