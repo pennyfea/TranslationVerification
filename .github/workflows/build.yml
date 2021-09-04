@@ -65,7 +65,7 @@ jobs:
     - name: Build Translation_Verification
       id: main_build
       run: |
-        cmake -G Ninja -S . -B . -DCMAKE_INSTALL_PREFIX=c:/Program Files/${PROJECT_NAME} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
+        cmake -G Ninja -S . -B . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
         ${{matrix.config.build_translationverification}}
     - name: CPack
       run: cpack
