@@ -52,7 +52,7 @@ target_include_directories(Translation_Verification PUBLIC
     "${qonlinetranslator_BINARY_DIR}/src"
     "${qonlinetranslator_SOURCE_DIR}/src")
 
-target_link_libraries(Translation_Verification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets
+target_link_libraries(Translation_Verification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets)
 
 include(GNUInstallDirs)
 
