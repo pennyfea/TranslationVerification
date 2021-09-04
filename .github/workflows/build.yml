@@ -65,7 +65,7 @@ jobs:
     - name: Build Translation_Verification
       id: main_build
       run: |
-        cmake -G Ninja -S . -B . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
+        cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
         ${{matrix.config.build_translationverification}}
     - name: CPack
       run: cpack
@@ -79,6 +79,7 @@ jobs:
         unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
         ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/*.desktop -appimage -extra-plugins=iconengines,platformthemes/libqxdgdesktopportal.so
         find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
+        
     - name: Prepare Upload
       shell: bash
       run: ${{matrix.config.rename_package}}
