@@ -56,6 +56,9 @@ jobs:
 
     - name: Install Ninja
       run: ${{matrix.config.install_ninja}}
+      
+    - name: Uninstall NuGet
+      run: ${{matrix.config.uninstall_NuGet}}
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v2.14.0
