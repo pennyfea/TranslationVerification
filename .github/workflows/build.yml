@@ -51,6 +51,9 @@ jobs:
       if: runner.os == 'Windows'
       with:
         arch: ${{matrix.config.WIN_ARCH}}
+  
+    - name: Install Ninja
+      uses: seanmiddleditch/gha-setup-ninja@master
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v2.14.0
@@ -60,11 +63,10 @@ jobs:
        version: ${{env.QT_VERSION}}
 
     - name: Build Translation_Verification
-      uses: seanmiddleditch/gha-setup-ninja@master
-#       id: main_build
-#       run: |
-#         cmake -S . -B . -G Ninja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
-#         ${{matrix.config.build_translationverification}}
+      id: main_build
+      run: |
+        cmake -S . -B . -G Ninja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
+        ${{matrix.config.build_translationverification}}
     - name: CPack
       run: cpack
 
