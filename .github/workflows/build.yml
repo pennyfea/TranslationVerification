@@ -61,10 +61,10 @@ jobs:
 
     - name: Build Translation_Verification
       uses: seanmiddleditch/gha-setup-ninja@master
-      id: main_build
-      run: |
-        cmake -S . -B . -G Ninja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
-        ${{matrix.config.build_translationverification}}
+#       id: main_build
+#       run: |
+#         cmake -S . -B . -G Ninja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
+#         ${{matrix.config.build_translationverification}}
     - name: CPack
       run: cpack
 
