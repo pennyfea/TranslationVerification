@@ -26,7 +26,7 @@ jobs:
            , install_ninja: "sudo apt-get install -qq ninja-build"
            , bcInstallPrefix: /usr
            , build_translationverification: "DESTDIR=./appdir ninja install; find ./appdir; mv default.png ./appdir/usr/share/"
-           , cpack_config: "cpack; export LD_LIBRARY_PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/lib"
+           , cpack_config: "cpack; export LD_LIBRARY_PATH=/d/dev/Qt/5.15.2/gcc_64/lib"
            , rename_package: "mv Translation_Verification-*.tar.xz Translation_Verification-continuous-linux-x86_64.tar.xz"
           }
         - {
