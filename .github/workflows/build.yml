@@ -24,7 +24,7 @@ jobs:
            , os: ubuntu-18.04
            , QT_INST_DIR: /opt
            , install_ninja: "sudo apt-get install -qq ninja-build"
-           , build_translationverification: "DESTDIR=./appdir ninja install; find ./appdir; mv default.jpg ./appdir/usr/local/share/"
+           , build_translationverification: "DESTDIR=./appdir ninja install; find ./appdir; mv default.png ./appdir/usr/local/share/"
            , rename_package: "mv Translation_Verification-*.tar.xz Translation_Verification-continuous-linux-x86_64.tar.xz"
           }
         - {
