@@ -73,6 +73,7 @@ jobs:
     - name: CPack
       run: |
         cpack
+        if: runner.os == 'Linux'
         export LD_LIBRARY_PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/lib
 
     - name: Build AppImage (Linux)
