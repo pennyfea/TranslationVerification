@@ -31,8 +31,7 @@ jobs:
             name: "Windows-x64", WIN_ARCH: "x64"
             , os: windows-latest
             , QT_INST_DIR: "C:/", QTDIR: "C:/Qt/5.15.2/msvc2019_64", QT_ARCH: win64_msvc2019_64
-            , install_ninja: "choco install ninja"
-            , uninstall_NuGet: "choco uninstall nuget"
+#             , install_ninja: "choco install ninja"
             , build_translationverification: "ninja install"
             , rename_package: "mv Translation_Verification-*.zip Translation_Verification-continuous-win64.zip && mv Translation_Verification-*.exe Translation_Verification-continuous-win64-installer.exe"
           }
@@ -40,8 +39,7 @@ jobs:
             name: "Windows-x86"
             , os: windows-latest, WIN_ARCH: "amd64_x86"
             , QT_INST_DIR: "C:/", QTDIR: "C:/Qt/5.15.2/msvc2019", QT_ARCH: win32_msvc2019
-            , install_ninja: "choco install ninja"
-            , uninstall_NuGet: "choco uninstall nuget"
+#             , install_ninja: "choco install ninja"
             , build_translationverification: "ninja install"
             , rename_package: "mv Translation_Verification-*.zip Translation_Verification-continuous-win32.zip && mv Translation_Verification-*.exe Translation_Verification-continuous-win32-installer.exe"
           }
@@ -54,12 +52,6 @@ jobs:
       with:
         arch: ${{matrix.config.WIN_ARCH}}
 
-    - name: Install Ninja
-      run: ${{matrix.config.install_ninja}}
-      
-    - name: Uninstall NuGet
-      run: ${{matrix.config.uninstall_NuGet}}
-
     - name: Install Qt
       uses: jurplel/install-qt-action@v2.14.0
       with:
@@ -69,6 +61,8 @@ jobs:
 
     - name: Build Translation_Verification
       id: main_build
+   - uses: actions/checkout@master
+   - uses: seanmiddleditch/gha-setup-ninja@master
       run: |
         cmake -S . -B . -G Ninja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
         ${{matrix.config.build_translationverification}}
