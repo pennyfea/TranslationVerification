@@ -3,5 +3,5 @@ Type=Application
 Version=1.0
 Name=translationVerification
 Terminal=false
-Exec=translationVerification
+Exec=Translation_Verification
 Categories=Qt;
