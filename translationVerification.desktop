@@ -2,7 +2,6 @@
 Type=Application
 Version=1.0
 Name=translationVerification
-Icon=default
 Terminal=false
 Exec=Translation_Verification
 Categories=Qt;
