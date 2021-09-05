@@ -61,7 +61,6 @@ jobs:
 
     - name: Build Translation_Verification
       id: main_build
-    - uses: actions/checkout@master
       run: |
         cmake -S . -B . -G Ninja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
         ${{matrix.config.build_translationverification}}
