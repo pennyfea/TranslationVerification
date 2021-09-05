@@ -74,7 +74,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-        wget -c "https://packages.ubuntu.com/trusty/libgstreamer-plugins-base0.10-0"
+        apt-get --reinstall install libgstreamer-plugins-base1.0-0
         export VERSION=continuous
         export PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/bin/:$PATH
         chmod a+x linuxdeployqt*.AppImage
