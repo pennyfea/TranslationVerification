@@ -82,7 +82,7 @@ jobs:
         export PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/bin/:$PATH
         chmod a+x linuxdeployqt*.AppImage
         unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
-        ./linuxdeployqt*.AppImage appdir/usr/local/share/applications/* -appimage -unsupported-allow-new-glibc -extra-plugins=iconengines,platformthemes/libqgtk3.so
+        ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -appimage -unsupported-allow-new-glibc -extra-plugins=iconengines,platformthemes/libqgtk3.so
         find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
         
     - name: Prepare Upload
