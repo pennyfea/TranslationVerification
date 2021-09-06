@@ -1,8 +1,11 @@
 [Desktop Entry]
-Type=Application
-Version=1.0
-Name=translationVerification
-Icon=default
-Terminal=false
+Categories=Utility;
 Exec=Translation_Verification
-Categories=Qt;
+Icon=default
+Name=Translation Verification
+Terminal=false
+Type=Application
+
+
+
+
