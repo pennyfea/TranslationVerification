@@ -19,6 +19,7 @@ if(Qt5Widgets_FOUND)
 endif()
 
 include(FetchContent)
+
 FetchContent_Declare(qonlinetranslator
     GIT_REPOSITORY https://github.com/crow-translate/QOnlineTranslator.git
 )
@@ -38,20 +39,28 @@ set(PROJECT_SOURCES
     src/widgetwindow.cpp
 )
 
-if(UNIX)
-    add_executable(Translation_Verification ${PROJECT_SOURCES})
-    target_link_libraries(Translation_Verification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets)
-    install(TARGETS Translation_Verification RUNTIME DESTINATION bin)
-elseif(WIN32)
-    add_executable(Translation_Verification WIN32 ${PROJECT_SOURCES})
-    target_link_libraries(Translation_Verification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets)
-    install(TARGETS Translation_Verification RUNTIME DESTINATION .)
+if(QT_VERSION_MAJOR GREATER_EQUAL 5)
+    qt_add_executable(Translation_Verification
+        MANUAL_FINALIZATION
+        ${PROJECT_SOURCES})
+else()
+    add_executable(Translation_Verification WIN32
+        ${PROJECT_SOURCES})
 endif()
 
 target_include_directories(Translation_Verification PUBLIC
     "${qonlinetranslator_BINARY_DIR}/src"
     "${qonlinetranslator_SOURCE_DIR}/src")
 
+target_link_libraries(Translation_Verification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets )
+
+#include(GNUInstallDirs)
+
+if(WIN32)
+    install(TARGETS Translation_Verification RUNTIME DESTINATION .)
+else()
+    install(TARGETS Translation_Verification RUNTIME DESTINATION bin)
+endif()
 ##CPack
 get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
@@ -63,7 +72,6 @@ set(CPACK_PACKAGE_VERSION "1.0.0") # Version of installer
 
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
     install(FILES ${CMAKE_SOURCE_DIR}/translationVerification.desktop DESTINATION share/applications/)
-    EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE)
     set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-linux-${ARCHITECTURE}")
     set(CPACK_GENERATOR "TXZ")
 
