@@ -76,6 +76,8 @@ jobs:
     - name: Build AppImage (Linux)
       if: runner.os == 'Linux'
       run: |
+        wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+        chmod a+x appimagetool-x86_64.AppImage
         wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
         export VERSION=continuous
         chmod a+x linuxdeployqt*.AppImage
@@ -85,9 +87,7 @@ jobs:
         ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/*.desktop -appimage -no-plugins
         rm ./appdir/AppRun
         cp ./appdir/usr/bin/Translation_Verification_Start_Script.sh ./appdir/AppRun
-        wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
-        chmod a+x appimagetool-x86_64.AppImage
-        ./appimagetool-x86_64.AppImage appdir
+        ./appimagetool-x86_64.AppImage ./appdir
 
         
     - name: Prepare Upload
