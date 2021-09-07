@@ -87,6 +87,7 @@ jobs:
         source ~/.bashrc
         chmod a+x linuxdeployqt*.AppImage
         ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -appimage -no-plugins
+        export LD_LIBRARY_PATH=appdir/usr/lib/
         find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
         
     - name: Prepare Upload
