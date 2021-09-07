@@ -1,6 +1,5 @@
 #!/bin/bash
- DIR="$(dirname "$(readlink -f "${0}")")/appdir/AppRun"
-if [ -d "$DIR" ]; then
+if [ -f /*.AppImage ]; then
     echo "HELLO"
     HERE="$(dirname "$(readlink -f "${0}")")"
     export LD_LIBRARY_PATH=$HOME/Qt/5.15.2/gcc_64/lib/
