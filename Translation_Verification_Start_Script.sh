@@ -1,5 +1,5 @@
 #!/bin/bash
- DIR="$(dirname "$(readlink -f "${0}")")/AppDir/"
+ DIR="$(dirname "$(readlink -f "${0}")")/appdir/"
 if [ -d "$DIR" ]; then
     echo "HELLO"
     HERE="$(dirname "$(readlink -f "${0}")")"
