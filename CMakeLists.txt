@@ -63,7 +63,7 @@ set(CPACK_PACKAGE_VERSION "1.0.0") # Version of installer
 
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
     install(FILES ${CMAKE_SOURCE_DIR}/translationVerification.desktop DESTINATION share/applications/)
-    install(FILES ${CMAKE_SOURCE_DIR}/Translation_Verification.sh DESTINATION bin)
+    install(FILES ${CMAKE_SOURCE_DIR}/Translation_Verification_Start_Script.sh DESTINATION bin)
     set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-linux-${ARCHITECTURE}")
     set(CPACK_GENERATOR "TXZ")
 
