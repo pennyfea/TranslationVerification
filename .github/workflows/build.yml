@@ -83,12 +83,13 @@ jobs:
         echo "-------------------------------------------------------"
         find appdir/usr/bin -type f -printf "%f\n"
         echo "-------------------------------------------------------"
-        echo "export LD_LIBRARY_PATH=$HOME/Qt/5.15.2/gcc_64/lib/:$LD_LIBRARY_PATH" >> ~/.bashrc
-        source ~/.bashrc
         chmod a+x linuxdeployqt*.AppImage
-        ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -appimage -no-plugins
-        export LD_LIBRARY_PATH=appdir/usr/lib/
-        find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
+        ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -bundle-non-qt-libs
+        echo "-------------------------------------------------------"
+        find appdir/ -type f -printf "%f\n"
+        echo "-------------------------------------------------------"
+        
+
         
     - name: Prepare Upload
       shell: bash
