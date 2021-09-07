@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=Utility;
-Exec=bash -c "chmod a+x appdir/usr/bin/Translation_Verification_Start_Script.sh; appdir/usr/bin/Translation_Verification_Start_Script.sh"
+Exec=bash -c "appdir/usr/bin/Translation_Verification_Start_Script.sh"
 Icon=default
 Name=Translation Verification
 Terminal=true
