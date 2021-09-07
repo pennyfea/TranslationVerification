@@ -78,17 +78,16 @@ jobs:
       run: |
         wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
         export VERSION=continuous
+        chmod a+x linuxdeployqt*.AppImage
         export PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/bin/:$PATH
         unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
-        echo "-------------------------------------------------------"
-        find appdir/usr/bin -type f -printf "%f\n"
-        echo "-------------------------------------------------------"
-        chmod a+x linuxdeployqt*.AppImage
-        ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -bundle-non-qt-libs
-        echo "-------------------------------------------------------"
-        find appdir/ -type f -printf "%f\n"
-        echo "-------------------------------------------------------"
-        
+        chmod a+x ./appdir/usr/bin/Translation_Verification_Start_Script.sh
+        ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/*.desktop -appimage -no-plugins
+        rm ./appdir/AppRun
+        cp ./appdir/usr/bin/Translation_Verification_Start_Script.sh ./appdir/AppRun
+        wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+        chmod a+x appimagetool-x86_64.AppImage
+        ./appimagetool-x86_64.AppImage appdir
 
         
     - name: Prepare Upload
