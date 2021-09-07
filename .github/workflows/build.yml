@@ -82,12 +82,11 @@ jobs:
         export PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/bin/:$PATH
         export LD_LIBRARY_PATH=$Qt5_DIR/lib/
         echo "-------------------------------------------------------"
-        echo $Qt5_DIR/lib
         find appdir/usr/bin -type f -printf "%f\n"
         echo "-------------------------------------------------------"
+        chmod a+x appdir/usr/bin/Translation_Verification_Start_Script.sh 
         chmod a+x linuxdeployqt*.AppImage
         ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -appimage -no-plugins
-         unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
         
     - name: Prepare Upload
       shell: bash
