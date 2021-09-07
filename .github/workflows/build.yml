@@ -82,8 +82,9 @@ jobs:
         export PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/bin/:$PATH
         chmod a+x linuxdeployqt*.AppImage
         unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
+        chmod a+x appdir/usr/bin/Translation_Verification_Start_Script.sh
         ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -appimage -no-plugins
-        chmod a+x Translation_Verification_Start_Script.sh
+       
         
         
     - name: Prepare Upload
