@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=Utility;
-Exec=Translation_Verification_Start_Script.sh
+Exec=appdir/usr/bin/Translation_Verification_Start_Script.sh
 Icon=default
 Name=Translation Verification
 Terminal=false
