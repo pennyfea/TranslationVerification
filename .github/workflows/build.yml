@@ -80,9 +80,9 @@ jobs:
         sudo apt-get --reinstall install libgstreamer-plugins-base1.0-0
         export VERSION=continuous
         export PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/bin/:$PATH
-        export LD_LIBRARY_PATH=/Qt/${{env.QT_VERSION}}/gcc_64/lib/
+        export LD_LIBRARY_PATH=$Qt5_DIR/lib/
         echo "-------------------------------------------------------"
-        echo $Qt5_DIR
+        echo $Qt5_DIR/lib
         echo "-------------------------------------------------------"
         chmod a+x linuxdeployqt*.AppImage
         ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -appimage -no-plugins
