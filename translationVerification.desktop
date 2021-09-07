@@ -1,11 +1,7 @@
 [Desktop Entry]
 Categories=Utility;
-Exec=Translation_Verification
+Exec=Translation_Verification_Start_Script
 Icon=default
 Name=Translation Verification
 Terminal=false
 Type=Application
-
-
-
-
