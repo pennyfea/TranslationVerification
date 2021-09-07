@@ -77,17 +77,16 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-        sudo apt-get --reinstall install libgstreamer-plugins-base1.0-0
         export VERSION=continuous
         export PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/bin/:$PATH
-        export LD_LIBRARY_PATH=$Qt5_DIR/lib/
+        unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
         echo "-------------------------------------------------------"
         find appdir/usr/bin -type f -printf "%f\n"
         echo "-------------------------------------------------------"
         chmod a+x appdir/usr/bin/Translation_Verification_Start_Script.sh 
         chmod a+x linuxdeployqt*.AppImage
         ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -appimage -no-plugins
-        find appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq # for debugging
+        find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
         
     - name: Prepare Upload
       shell: bash
