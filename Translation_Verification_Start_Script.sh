@@ -1,10 +1,9 @@
 #!/bin/bash
-DIR="./appdir/AppRun"
-if [ -d "$DIR" ]; then
+DIR="$(dirname "$(readlink -f "${0}")")"
+if [ -d "$DIR"/AppDir ]; then
     echo "HELLO"
-    HERE="$(dirname "$(readlink -f "${0}")")"
-    export LD_LIBRARY_PATH=$HOME/Qt/5.15.2/gcc_64/lib/
-    exec "${HERE}/usr/bin/Translation_Verification" "$@"
+    export LD_LIBRARY_PATH=$DIR/Qt/5.15.2/gcc_64/lib/
+    exec "${DIR}/usr/bin/Translation_Verification" "$@"
 else
     echo "HOORAY"
     LD_LIBRARY_PATH="$HOME/Qt/5.15.2/gcc_64/lib/"
