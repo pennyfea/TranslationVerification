@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -f /*.AppImage ]; then
+if [ ! -f "Translation_Verification-continuous-x86_64.AppImage" ]; then
     LD_LIBRARY_PATH="$HOME/Qt/5.15.2/gcc_64/lib/"
     export LD_LIBRARY_PATH 
     ./Translation_Verification
