@@ -19,33 +19,33 @@ jobs:
       fail-fast: false
       matrix:
         config:
+#         - {
+#            name: "Linux-amd64"
+#            , os: ubuntu-18.04
+#            , QT_INST_DIR: /opt
+#            , install_ninja: "sudo apt-get install -qq ninja-build"
+#            , bcInstallPrefix: /usr
+#            , build_translationverification: "DESTDIR=./appdir ninja install; find ./appdir; mv default.png ./appdir/usr/share/"
+#            , rename_package: "mv Translation_Verification-*.tar.xz Translation_Verification-continuous-linux-x86_64.tar.xz"
+#           }
         - {
-           name: "Linux-amd64"
-           , os: ubuntu-18.04
-           , QT_INST_DIR: /opt
-           , install_ninja: "sudo apt-get install -qq ninja-build"
-           , bcInstallPrefix: /usr
-           , build_translationverification: "DESTDIR=./appdir ninja install; find ./appdir; mv default.png ./appdir/usr/share/"
-           , rename_package: "mv Translation_Verification-*.tar.xz Translation_Verification-continuous-linux-x86_64.tar.xz"
+            name: "Windows-x64", WIN_ARCH: "x64"
+            , os: windows-latest
+            , QT_INST_DIR: "C:/", QTDIR: "C:/Qt/5.15.2/msvc2019_64", QT_ARCH: win64_msvc2019_64
+            , install_ninja: "choco install ninja"
+            , bcInstallPrefix: Translation_Verification-continuous
+            , build_translationverification: "ninja install"
+            , rename_package: "mv Translation_Verification-*.zip Translation_Verification-continuous-win64.zip && mv Translation_Verification-*.exe Translation_Verification-continuous-win64-installer.exe"
           }
-#         - {
-#             name: "Windows-x64", WIN_ARCH: "x64"
-#             , os: windows-latest
-#             , QT_INST_DIR: "C:/", QTDIR: "C:/Qt/5.15.2/msvc2019_64", QT_ARCH: win64_msvc2019_64
-#             , install_ninja: "choco install ninja"
-#             , bcInstallPrefix: Translation_Verification-continuous
-#             , build_translationverification: "ninja install"
-# #             , rename_package: "mv Translation_Verification-*.zip Translation_Verification-continuous-win64.zip && mv Translation_Verification-*.exe Translation_Verification-continuous-win64-installer.exe"
-#           }
-#         - {
-#             name: "Windows-x86"
-#             , os: windows-latest, WIN_ARCH: "amd64_x86"
-#             , QT_INST_DIR: "C:/", QTDIR: "C:/Qt/5.15.2/msvc2019", QT_ARCH: win32_msvc2019
-#             , install_ninja: "choco install ninja"
-#             , bcInstallPrefix: Translation_Verification-continuous
-#             , build_translationverification: "ninja install"
-# #             , rename_package: "mv Translation_Verification-*.zip Translation_Verification-continuous-win32.zip && mv Translation_Verification-*.exe Translation_Verification-continuous-win32-installer.exe"
-#           }
+        - {
+            name: "Windows-x86"
+            , os: windows-latest, WIN_ARCH: "amd64_x86"
+            , QT_INST_DIR: "C:/", QTDIR: "C:/Qt/5.15.2/msvc2019", QT_ARCH: win32_msvc2019
+            , install_ninja: "choco install ninja"
+            , bcInstallPrefix: Translation_Verification-continuous
+            , build_translationverification: "ninja install"
+            , rename_package: "ls -R && mv Translation_Verification-*.zip Translation_Verification-continuous-win32.zip && mv Translation_Verification-*.exe Translation_Verification-continuous-win32-installer.exe"
+          }
     steps:
     - uses: actions/checkout@v2
 
