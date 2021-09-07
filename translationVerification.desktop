@@ -3,5 +3,5 @@ Categories=Utility;
 Exec=Translation_Verification
 Icon=default
 Name=Translation Verification
-Terminal=false
+Terminal=true
 Type=Application
