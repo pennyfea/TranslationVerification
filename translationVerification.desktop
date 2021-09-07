@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=Utility;
-Exec=appdir/usr/Translation_Verification
+Exec=Translation_Verification
 Icon=default
 Name=Translation Verification
 Terminal=true
