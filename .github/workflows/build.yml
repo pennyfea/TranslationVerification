@@ -81,10 +81,10 @@ jobs:
         export VERSION=continuous
         export PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/bin/:$PATH
         chmod a+x linuxdeployqt*.AppImage
-        chmod a+x Translation_Verification_Start_Script.sh
         unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
         ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -appimage -no-plugins
-        find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
+        chmod a+x Translation_Verification_Start_Script.sh
+        
         
     - name: Prepare Upload
       shell: bash
