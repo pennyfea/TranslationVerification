@@ -72,7 +72,7 @@ jobs:
         ${{matrix.config.build_translationverification}}
     - name: CPack
       run: cpack
-
+      
     - name: Build AppImage (Linux)
       if: runner.os == 'Linux'
       run: |
@@ -81,6 +81,7 @@ jobs:
         export VERSION=continuous
         export PATH=/d/dev/Qt/${{env.QT_VERSION}}/gcc_64/bin/:$PATH
         chmod a+x linuxdeployqt*.AppImage
+        chmod a+x Translation_Verification_Start_Script.sh
         unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
         ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -appimage -no-plugins
         find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
