@@ -87,6 +87,10 @@ jobs:
         chmod a+x appdir/usr/bin/Translation_Verification_Start_Script.sh 
         chmod a+x linuxdeployqt*.AppImage
         ./linuxdeployqt*.AppImage appdir/usr/share/applications/* -appimage -no-plugins
+        find appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq # for debugging
+        curl --upload-file "Translation Verification"*.AppImage https://transfer.sh/"Translation Verification"-git.$(git rev-parse --short HEAD)-x86_64.AppImage
+        wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+        ./upload.sh "Translation Verification"*.AppImage*
         
     - name: Prepare Upload
       shell: bash
