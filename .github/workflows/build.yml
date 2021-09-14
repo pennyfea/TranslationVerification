@@ -133,7 +133,7 @@ jobs:
             , install_openssl: "choco install openssl"
             , bcInstallPrefix: Translation_Verification-continuous
             , build_translationverification: "ninja install"
-            , rename_package: "mv Translation_Verification-*.zip Translation_Verification-continuous-win64.zip && mv Translation_Verification-*.exe Translation_Verification-continuous-win64-installer.exe"
+            , rename_package: "mv Translation_Verification-*.zip Translation_Verification-talis-continuous-win64.zip && mv Translation_Verification-*.exe Translation_Verification-talis-continuous-win64-installer.exe"
           }
         - {
             name: "Windows-x86"
@@ -143,7 +143,7 @@ jobs:
             , install_openssl: "choco install openssl"
             , bcInstallPrefix: Translation_Verification-continuous
             , build_translationverification: "ninja install"
-            , rename_package: "ls -R && mv Translation_Verification-*.zip Translation_Verification-continuous-win32.zip && mv Translation_Verification-*.exe Translation_Verification-continuous-win32-installer.exe"
+            , rename_package: "ls -R && mv Translation_Verification-*.zip Translation_Verification-talis-continuous-win32.zip && mv Translation_Verification-*.exe Translation_Verification-talis-continuous-win32-installer.exe"
           }
     steps:
     
