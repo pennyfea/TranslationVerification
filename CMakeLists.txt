@@ -26,6 +26,8 @@ if(NOT qonlinetranslator_POPULATED)
     add_subdirectory(${qonlinetranslator_SOURCE_DIR} ${qonlinetranslator_BINARY_DIR})
 endif()
 
+set(RESOURCES fonts/resources.qrc)
+
 set(PROJECT_SOURCES
     src/main.cpp
     src/addlanguagedialog.cpp
@@ -33,7 +35,10 @@ set(PROJECT_SOURCES
     src/verification.cpp
     src/widgetwindow.ui
     src/widgetwindow.cpp
+    src/fontcombobox.cpp
 )
+
+qt5_add_resources(PROJECT_SOURCES fonts/resources.qrc)
 
 include(GNUInstallDirs)
 add_executable(Translation_Verification WIN32 ${PROJECT_SOURCES})
@@ -48,7 +53,7 @@ target_include_directories(Translation_Verification PUBLIC
 get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
 
-set(CPACK_PACKAGE_NAME "Translation_Verification")
+set(CPACK_PACKAGE_NAME "Translation_Verification-talis")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Translation Verification Installation")
 set(CPACK_PACKAGE_VERSION "1.0.0") # Version of installer
 

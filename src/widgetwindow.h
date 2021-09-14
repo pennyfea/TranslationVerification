@@ -5,6 +5,7 @@
 #include <QSignalMapper>
 #include "verification.h"
 #include "addlanguagedialog.h"
+#include "fontcombobox.h"
 
 namespace Ui {
 class widgetwindow;
@@ -39,6 +40,8 @@ private:
     Verification* m_verification;
     QSignalMapper *m_signalMapper;
     AddLanguageDialog* m_languageDialog;
+    FontComboBox* m_fontComboBox;
+
 };
 
 #endif // WIDGETWINDOW_H

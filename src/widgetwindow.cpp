@@ -1,3 +1,5 @@
+#include <QDir>
+#include <QDirIterator>
 #include "widgetwindow.h"
 #include "ui_widgetwindow.h"
 
@@ -12,16 +14,25 @@ widgetwindow::widgetwindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->menuBar->hide();
+
+    QStringList fontFileList = QDir(":/fonts/").entryList(QStringList() << "*.", QDir::Files | QDir::NoDotDot | QDir::NoDot);
+    QDirIterator it(":/fonts/",  QDir::Files | QDir::NoDotDot | QDir::NoDot, QDirIterator::Subdirectories);
+    while (it.hasNext())
+        fontFileList << it.next();
+
+    m_fontComboBox = new FontComboBox(fontFileList, this);
+    ui->horizontalLayout->addWidget(m_fontComboBox);
+
     m_signalMapper = new QSignalMapper(this);
     connect(m_signalMapper, &QSignalMapper::mappedInt, this, &widgetwindow::openLanguageDialog);
 
-    ui->translationLineEdit->setFont(ui->fontComboBox->currentFont());
+    ui->translationLineEdit->setFont(m_fontComboBox->getFont());
     ui->textWidthLabel->setText("0");
     ui->translatedLineEdit->setReadOnly(true);
     QPalette palette;
     palette.setColor(QPalette::Base,Qt::gray);
     ui->translatedLineEdit->setPalette(palette);
-    QFontMetrics fm(ui->fontComboBox->currentFont());
+    QFontMetrics fm(m_fontComboBox->getFont());
     ui->fontSizeSpinBox->setValue(fm.height());
 
     ui->fontSizeSpinBox->setMaximum(MAXIMUM);
@@ -36,9 +47,12 @@ widgetwindow::widgetwindow(QWidget *parent) :
     QObject::connect(ui->translationLineEdit, &QLineEdit::textChanged, m_verification,
         &Verification::setTranslation);
 
-    QObject::connect(ui->fontComboBox, &QFontComboBox::currentFontChanged, this, &widgetwindow::fontChanged);
 
-    QObject::connect(ui->fontComboBox, &QFontComboBox::currentFontChanged, m_verification, &Verification::setFont);
+    QObject::connect(m_fontComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), m_fontComboBox, &FontComboBox::setIndex);
+
+    QObject::connect(m_fontComboBox, &FontComboBox::fontChanged, this, &widgetwindow::fontChanged);
+
+    QObject::connect(m_fontComboBox, &FontComboBox::fontChanged, m_verification, &Verification::setFont);
 
     QObject::connect(m_verification, &Verification::verificationStatus, this, &widgetwindow::setVerification);
 

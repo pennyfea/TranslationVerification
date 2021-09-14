@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/fonts">
+        <file>Muli/Muli-Black.ttf</file>
+        <file>Muli/Muli-BlackItalic.ttf</file>
+        <file>Muli/Muli-Bold.ttf</file>
+        <file>Muli/Muli-BoldItalic.ttf</file>
+        <file>Muli/Muli-ExtraBold.ttf</file>
+        <file>Muli/Muli-ExtraBoldItalic.ttf</file>
+        <file>Muli/Muli-ExtraLight.ttf</file>
+        <file>Muli/Muli-ExtraLightItalic.ttf</file>
+        <file>Muli/Muli-Italic.ttf</file>
+        <file>Muli/Muli-Light.ttf</file>
+        <file>Muli/Muli-LightItalic.ttf</file>
+        <file>Muli/Muli-Regular.ttf</file>
+        <file>Muli/Muli-SemiBold.ttf</file>
+        <file>Muli/Muli-SemiBoldItalic.ttf</file>
+        <file>FontAwesome/Font_Awesome_5_Pro-Regular-400.otf</file>
+        <file>FontAwesome/Font_Awesome_5_pro-solid-900.otf</file>
+        <file>bebas_neue/BebasNeue-Regular.woff</file>
+        <file>bebas_neue/BebasNeue-Regular.woff2</file>
+    </qresource>
+</RCC>
