@@ -36,9 +36,16 @@ set(PROJECT_SOURCES
 )
 
 include(GNUInstallDirs)
-add_executable(Translation_Verification WIN32 ${PROJECT_SOURCES})
+add_executable(Translation_Verification WIN32 MACOSX_BUNDLE ${PROJECT_SOURCES})
 target_link_libraries(Translation_Verification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets )
-install(TARGETS Translation_Verification RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS Translation_Verification
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
+set_target_properties(Translation_Verification PROPERTIES
+  MACOSX_BUNDLE_BUNDLE_VERSION "${CMAKE_PROJECT_VERSION}"
+  MACOSX_BUNDLE_SHORT_VERSION_STRING "${CMAKE_PROJECT_VERSION}"
+)
 
 target_include_directories(Translation_Verification PUBLIC
     "${qonlinetranslator_BINARY_DIR}/src"
@@ -54,12 +61,12 @@ set(CPACK_PACKAGE_VERSION "1.0.0") # Version of installer
 
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
     install(FILES ${CMAKE_SOURCE_DIR}/translationVerification.desktop DESTINATION share/applications/)
+    install(FILES ${CMAKE_SOURCE_DIR}/default.png DESTINATION share/pixmaps/)
     EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE)
     set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-linux-${ARCHITECTURE}")
     set(CPACK_GENERATOR "TXZ")
 
 elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
-
     set(CPACK_PACKAGE_INSTALL_DIRECTORY "Translation_Verification")
     set(CPACK_NSIS_DISPLAY_NAME ${CMAKE_PACKAGE_NAME})
     set(CPACK_NSIS_COMPRESSOR lzma)
@@ -91,6 +98,16 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
         FILES_MATCHING PATTERN "*.*"
     )
     set(CPACK_GENERATOR "ZIP;NSIS")
+
+elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+
+    find_program(MACDEPLOYQT macdeployqt HINTS "${_qt_bin_dir}")
+    add_custom_command(
+        TARGET Translation_Verification POST_BUILD
+        COMMAND ${MACDEPLOYQT} Translation_Verification.app
+    )
+    set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-macos")
+    set(CPACK_DMG_VOLUME_NAME "Translation_Verification")
 endif()
 
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_FILE_NAME}-src")
