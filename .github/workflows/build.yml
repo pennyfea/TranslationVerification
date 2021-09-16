@@ -85,7 +85,6 @@ jobs:
        version: ${{env.QT_VERSION}}
        
     - name: Build Translation_Verification
-      id: main_build
       run: |
         cmake -S. ${{matrix.config.cmake_extra_Options}} -DCMAKE_INSTALL_PREFIX=${{matrix.config.bcInstallPrefix}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
         cmake --build . --config ${{env.BUILD_TYPE}}

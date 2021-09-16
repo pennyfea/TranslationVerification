@@ -100,7 +100,6 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
     set(CPACK_GENERATOR "ZIP;NSIS")
 
 elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
-
     find_program(MACDEPLOYQT macdeployqt HINTS "${_qt_bin_dir}")
     add_custom_command(
         TARGET Translation_Verification POST_BUILD
