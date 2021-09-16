@@ -127,7 +127,7 @@ jobs:
            , bcInstallPrefix: /usr
            , cpack_generator: cpack
            , package_name: appdir
-           , rename_package: "mv Translation_Verification-*.tar.xz Translation_Verification-talis-continuous-linux-x86_64.tar.xz"
+           , rename_package: "mv Translation_Verification-*.tar.xz Translation_Verification-talis-continuous-linux-x86_64.tar.xz && mv Translation_Verification-*.AppImage Translation_Verification-talis-continuous-x86_64.AppImage"
           }
         - {
             name: "MacOS-amd64"
