@@ -35,6 +35,10 @@ set(PROJECT_SOURCES
     src/widgetwindow.cpp
 )
 
+if(APPLE)
+    set(CMAKE_MACOSX_RPATH ON)
+endif()
+
 include(GNUInstallDirs)
 add_executable(Translation_Verification WIN32 MACOSX_BUNDLE ${PROJECT_SOURCES})
 target_link_libraries(Translation_Verification PUBLIC QOnlineTranslator PRIVATE Qt5::Widgets )
